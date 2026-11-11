@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1794358164553,
+      "tag": "0000_master_poker_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794358199718,
+      "tag": "0001_referral_reward",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794358220432,
+      "tag": "0002_sound_preferences",
+      "breakpoints": true
+    }
+  ]
+}

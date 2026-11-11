@@ -1,0 +1,12 @@
+# Netlify build settings for this TanStack Start app.
+# Builds a static site in dist/ (see scripts/netlify-drop.mjs): pages render in the browser,
+# and images + game requests are forwarded to the published Lovable app.
+[build]
+  command = "npm run build:netlify-drop"
+  publish = "dist"
+
+[build.environment]
+  NITRO_PRESET = "netlify"
+  NODE_VERSION = "22"
+  VITE_SUPABASE_URL = "https://wfocbehdanhccpgplfdt.supabase.co"
+  VITE_SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indmb2NiZWhkYW5oY2NwZ3BsZmR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQzNjI1OTQsImV4cCI6MjEwOTkzODU5NH0.vZgK9HxvWlOVEpAppvN35DCQC88iaxT9xNVMdXZ36II"

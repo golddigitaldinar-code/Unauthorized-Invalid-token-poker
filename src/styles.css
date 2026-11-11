@@ -1,0 +1,507 @@
+/*
+ * Tailwind v4 entry: config lives here, with no tailwind.config.js or PostCSS plugin.
+ * Keep every @import in this top block. Never @import a remote URL.
+ */
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Master Poker design system: dark slate room, green felt, gold accents.
+ * Ported from the original Tailwind v3 config (felt/gold palettes, deal/chip/seat animations).
+ */
+
+@theme {
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-display: "Cinzel", Georgia, serif;
+
+  /* Master Poker: warm mahogany neutrals replace cool slate across the whole app. */
+  --color-slate-50: oklch(0.97 0.012 80);
+  --color-slate-100: oklch(0.94 0.018 78);
+  --color-slate-200: oklch(0.88 0.024 75);
+  --color-slate-300: oklch(0.79 0.03 72);
+  --color-slate-400: oklch(0.68 0.032 68);
+  --color-slate-500: oklch(0.55 0.03 62);
+  --color-slate-600: oklch(0.43 0.028 55);
+  --color-slate-700: oklch(0.33 0.03 48);
+  --color-slate-800: oklch(0.24 0.03 42);
+  --color-slate-900: oklch(0.18 0.026 38);
+  --color-slate-950: oklch(0.13 0.02 35);
+
+  --color-felt-700: oklch(0.42 0.1 160);
+  --color-felt-800: oklch(0.34 0.085 162);
+  --color-felt-900: oklch(0.25 0.06 165);
+  --color-gold-300: oklch(0.9 0.1 88);
+  --color-gold-400: oklch(0.82 0.13 82);
+  --color-gold-500: oklch(0.7 0.13 74);
+
+  --animate-deal-in: deal-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-chip-in: chip-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-seat-in: seat-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-winner-glow: winner-glow 1.4s ease-in-out infinite;
+  --animate-turn-pulse: turn-pulse 1.2s ease-in-out infinite;
+  --animate-modal-in: modal-in 0.22s ease-out both;
+  --animate-fade-in: fade-in 0.2s ease-out both;
+  --animate-balance-flash: balance-flash 0.8s ease-out both;
+  --animate-scan-line: scan-line 2.4s ease-in-out infinite;
+
+  @keyframes deal-in {
+    from { opacity: 0; transform: translateY(-28px) scale(0.85) rotate(-8deg); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes chip-in {
+    from { opacity: 0; transform: scale(0.3) translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes seat-in {
+    /* Centering comes from the element's own translate; the animation only adds a small rise. */
+    from { opacity: 0; transform: translateY(10%) scale(0.92); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes winner-glow {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(232, 192, 106, 0.9), 0 0 18px rgba(232, 192, 106, 0.45); }
+    50% { box-shadow: 0 0 0 2px rgba(232, 192, 106, 0.4), 0 0 30px rgba(232, 192, 106, 0.8); }
+  }
+  @keyframes turn-pulse {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(110, 231, 183, 0.9); }
+    50% { box-shadow: 0 0 0 5px rgba(110, 231, 183, 0.25); }
+  }
+  @keyframes modal-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes balance-flash {
+    0% { color: #6ee7b7; transform: scale(1.06); }
+    100% { color: inherit; transform: scale(1); }
+  }
+  @keyframes scan-line {
+    0%, 100% { top: 0%; }
+    50% { top: 100%; }
+  }
+
+  --animate-rise-in: rise-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 11s ease-in-out infinite;
+  --animate-shimmer: shimmer 3.2s linear infinite;
+  --animate-card-flip: card-flip 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-pot-bump: pot-bump 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  --animate-live-ping: live-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-aurora: aurora 18s ease-in-out infinite alternate;
+  --animate-spin-slow: spin 6s linear infinite;
+  --animate-spotlight: spotlight 4s ease-in-out infinite;
+  --animate-dealer-deal: dealer-deal 0.9s ease-in-out infinite;
+
+  @keyframes dealer-deal {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    35% { transform: translateY(3%) rotate(-1.5deg); }
+    70% { transform: translateY(1%) rotate(1.5deg); }
+  }
+
+  @keyframes rise-in {
+    from { opacity: 0; transform: translateY(18px); filter: blur(4px); }
+    to { opacity: 1; transform: none; filter: none; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
+    50% { transform: translateY(-18px) rotate(calc(var(--tilt, 0deg) + 4deg)); }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+  @keyframes card-flip {
+    0% { opacity: 0; transform: perspective(600px) translateY(-24px) rotateY(90deg) scale(0.9); }
+    60% { opacity: 1; transform: perspective(600px) rotateY(-10deg) scale(1.04); }
+    100% { opacity: 1; transform: perspective(600px) rotateY(0) scale(1); }
+  }
+  @keyframes pot-bump {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.14); }
+    100% { transform: scale(1); }
+  }
+  @keyframes live-ping {
+    75%, 100% { transform: scale(2.4); opacity: 0; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes aurora {
+    0% { transform: translate3d(-6%, -4%, 0) scale(1); }
+    50% { transform: translate3d(5%, 3%, 0) scale(1.12); }
+    100% { transform: translate3d(-3%, 6%, 0) scale(1.05); }
+  }
+  @keyframes spotlight {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 0.9; }
+  }
+}
+
+@keyframes turn-shrink {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+/* Live-room motion: drifting suits, light sweeps, fanned cards, win sparkles. */
+@keyframes suit-drift {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
+  12% { opacity: var(--suit-opacity, 0.12); }
+  50% { transform: translate3d(var(--sway, 30px), -55vh, 0) rotate(180deg); }
+  88% { opacity: var(--suit-opacity, 0.12); }
+  100% { transform: translate3d(0, -115vh, 0) rotate(360deg); opacity: 0; }
+}
+@keyframes sweep-x {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+@keyframes shine-pass {
+  0%, 70% { transform: translateX(-130%) skewX(-18deg); }
+  100% { transform: translateX(230%) skewX(-18deg); }
+}
+@keyframes sparkle-pop {
+  0% { transform: translate(0, 0) scale(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(1); opacity: 0; }
+}
+@keyframes glow-breathe {
+  0%, 100% { box-shadow: 0 0 0 1px color-mix(in oklab, var(--gold) 25%, transparent), 0 0 24px -8px color-mix(in oklab, var(--gold) 30%, transparent); }
+  50% { box-shadow: 0 0 0 1px color-mix(in oklab, var(--gold) 55%, transparent), 0 0 38px -6px color-mix(in oklab, var(--gold) 55%, transparent); }
+}
+@keyframes chip-hop {
+  0%, 100% { transform: translateY(0) rotateX(0deg); }
+  40% { transform: translateY(-14px) rotateX(180deg); }
+  60% { transform: translateY(-14px) rotateX(200deg); }
+}
+@keyframes equalizer {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+}
+
+:root {
+  /* Matches the original radius scale (rounded-xl = 0.75rem, rounded-2xl = 1rem). */
+  --radius: 0.5rem;
+  --background: oklch(0.13 0.02 35);
+  --foreground: oklch(0.97 0.012 80);
+  --card: oklch(0.19 0.028 40);
+  --card-foreground: oklch(0.97 0.012 80);
+  --popover: oklch(0.19 0.028 40);
+  --popover-foreground: oklch(0.97 0.012 80);
+  --primary: oklch(0.82 0.13 82);
+  --primary-foreground: oklch(0.18 0.03 40);
+  --secondary: oklch(0.26 0.032 44);
+  --secondary-foreground: oklch(0.97 0.012 80);
+  --muted: oklch(0.26 0.032 44);
+  --muted-foreground: oklch(0.7 0.03 70);
+  --accent: oklch(0.3 0.04 46);
+  --accent-foreground: oklch(0.97 0.012 80);
+  --destructive: oklch(0.645 0.246 16.439);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.82 0.13 82);
+
+  /* Poker room signature tokens */
+  --room: oklch(0.11 0.018 35);
+  --wood: oklch(0.3 0.06 45);
+  --wood-deep: oklch(0.2 0.045 38);
+  --burgundy: oklch(0.38 0.12 18);
+  --gold: oklch(0.84 0.13 84);
+  --gold-deep: oklch(0.66 0.13 72);
+  --felt: oklch(0.45 0.11 158);
+  --felt-deep: oklch(0.27 0.07 162);
+  --live: oklch(0.8 0.17 155);
+
+  /* Casino chip clay colours (by value) and the cream edge inlays */
+  --chip-white: oklch(0.93 0.01 85);
+  --chip-red: oklch(0.52 0.2 25);
+  --chip-green: oklch(0.52 0.14 155);
+  --chip-black: oklch(0.22 0.01 260);
+  --chip-purple: oklch(0.45 0.17 305);
+  --chip-gold: oklch(0.78 0.15 80);
+  --chip-blue: oklch(0.52 0.15 250);
+  --chip-inlay: oklch(0.97 0.015 90);
+  --chip-shade: oklch(0 0 0);
+  --gradient-gold: linear-gradient(180deg, oklch(0.93 0.11 92) 0%, oklch(0.82 0.14 82) 45%, oklch(0.64 0.13 70) 100%);
+  --gradient-wood: linear-gradient(160deg, oklch(0.27 0.055 45 / 92%), oklch(0.17 0.035 38 / 94%));
+  --gradient-gold-text: linear-gradient(100deg, oklch(0.75 0.12 78) 0%, oklch(0.95 0.08 92) 30%, oklch(0.78 0.13 80) 50%, oklch(0.96 0.07 95) 70%, oklch(0.75 0.12 78) 100%);
+  --shadow-gold: 0 10px 40px -10px color-mix(in oklab, var(--gold) 55%, transparent);
+  --shadow-panel: 0 20px 60px -20px oklch(0 0 0 / 70%), inset 0 1px 0 oklch(1 0 0 / 6%);
+}
+
+@theme inline {
+  --color-room: var(--room);
+  --color-wood: var(--wood);
+  --color-wood-deep: var(--wood-deep);
+  --color-burgundy: var(--burgundy);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-felt: var(--felt);
+  --color-felt-deep: var(--felt-deep);
+  --color-live: var(--live);
+  --color-chip-red: var(--chip-red);
+  --color-chip-black: var(--chip-black);
+  --color-chip-gold: var(--chip-gold);
+  --color-chip-inlay: var(--chip-inlay);
+}
+
+/* Ambient animated background: two drifting glows (felt green + gold). */
+@utility bg-ambient {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--room);
+  &::before,
+  &::after {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    pointer-events: none;
+    width: 70vmax;
+    height: 70vmax;
+    border-radius: 9999px;
+    filter: blur(90px);
+    animation: var(--animate-aurora);
+  }
+  &::before {
+    top: -30vmax;
+    left: -20vmax;
+    background: radial-gradient(circle, color-mix(in oklab, var(--felt) 40%, transparent), transparent 65%);
+  }
+  &::after {
+    bottom: -35vmax;
+    right: -25vmax;
+    background: radial-gradient(circle, color-mix(in oklab, var(--burgundy) 35%, transparent), transparent 65%);
+    animation-delay: -9s;
+  }
+}
+
+@utility glass-panel {
+  background: var(--gradient-wood);
+  border: 1px solid color-mix(in oklab, var(--gold) 22%, transparent);
+  box-shadow: var(--shadow-panel);
+  backdrop-filter: blur(14px);
+}
+
+@utility text-gold-shimmer {
+  background-image: var(--gradient-gold-text);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: var(--animate-shimmer);
+}
+
+/* Gold call-to-action with a light sweep on hover. */
+@utility btn-gold {
+  position: relative;
+  overflow: hidden;
+  background-image: var(--gradient-gold);
+  color: var(--primary-foreground);
+  box-shadow: var(--shadow-gold);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, oklch(1 0 0 / 55%) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.7s ease;
+  }
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+  }
+  &:hover:not(:disabled)::after {
+    transform: translateX(120%);
+  }
+  &:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+/* Hover lift for cards and tiles. */
+@utility card-lift {
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  &:hover:not(:disabled) {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 50px -20px oklch(0 0 0 / 80%), 0 0 0 1px color-mix(in oklab, var(--gold) 35%, transparent);
+  }
+}
+
+/* Spinning gold border for featured cards: wrap content in an inner element with its own background. */
+@utility border-spin {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -150%;
+    z-index: -2;
+    background: conic-gradient(from 0deg, transparent 0 70%, var(--gold) 85%, transparent 100%);
+    animation: var(--animate-spin-slow);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(100deg, oklch(0.27 0.06 60 / 96%), oklch(0.17 0.035 38 / 97%) 60%);
+  }
+}
+
+/* Polished mahogany rail with a soft top highlight, matching the casino table look. */
+@utility table-rail {
+  background:
+    radial-gradient(ellipse at 50% 8%, oklch(0.55 0.09 50 / 55%), transparent 45%),
+    repeating-linear-gradient(96deg, oklch(0.36 0.08 42) 0px, oklch(0.42 0.09 45) 7px, oklch(0.33 0.075 40) 13px, oklch(0.39 0.085 44) 19px),
+    var(--wood);
+  box-shadow:
+    0 40px 90px oklch(0 0 0 / 85%),
+    inset 0 5px 8px oklch(0.85 0.08 70 / 30%),
+    inset 0 -10px 18px oklch(0 0 0 / 65%);
+}
+
+/* Subtle woven texture for the felt. */
+@utility felt-texture {
+  background-image:
+    radial-gradient(ellipse at 50% 30%, oklch(0.52 0.11 165) 0%, oklch(0.4 0.09 168) 45%, oklch(0.22 0.05 170) 100%);
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0.18;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Gold light that runs along the bottom edge of the top bar. */
+@utility header-sweep {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--live), transparent);
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
+    animation: sweep-x 6s linear infinite;
+    opacity: 0.8;
+  }
+}
+
+/* A diagonal light streak that passes over a card every few seconds. */
+@utility shine-sweep {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -20% auto -20% 0;
+    width: 35%;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, oklch(1 0 0 / 9%), transparent);
+    animation: shine-pass 5.5s ease-in-out infinite;
+    animation-delay: var(--shine-delay, 0s);
+  }
+}
+
+/* Slow breathing gold halo for featured panels. */
+@utility glow-breathe {
+  animation: glow-breathe 3.6s ease-in-out infinite;
+}
+
+@utility animate-chip-hop {
+  animation: chip-hop 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transform-style: preserve-3d;
+}
+
+@utility animate-equalizer {
+  transform-origin: bottom;
+  animation: equalizer 0.9s ease-in-out infinite;
+}
+
+/* Small, quiet pattern of suits for empty states and cards. */
+@utility suit-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Ctext x='6' y='22' font-size='16' fill='%23e8c06a' fill-opacity='0.05'%3E%E2%99%A0%3C/text%3E%3Ctext x='34' y='50' font-size='16' fill='%23e8c06a' fill-opacity='0.05'%3E%E2%99%A6%3C/text%3E%3C/svg%3E");
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+/* Thin gold rule with diamond, used under section titles. */
+@utility gold-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--room);
+    color: var(--color-slate-100);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}

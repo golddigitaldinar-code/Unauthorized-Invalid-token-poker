@@ -1,0 +1,33 @@
+# Roadmap
+
+- [x] Import uploaded poker project and connect Lovable Cloud
+- [x] Rename to Master Poker, use the logo photo, refresh the design
+- [x] Profile photo upload in Settings
+- [x] Remove bot level picker; one fixed level per table (players can't pick an easier one)
+- [x] Fix "missing game server key" so cash tables work
+- [x] Sign in / create account without email confirmation
+- [x] Admin account for tahariabdulaziz@gmail.com
+- [x] Referral code (8 letters/numbers) for every user
+- [x] ₱20 welcome bonus on first sign in
+- [x] Recharge: scan owner's QR, upload proof of payment; admin can change QR
+- [x] Referral reward: inviter credited after referred player's first approved recharge (min ₱100)
+- [x] Casino-style table and illustrated dealer based on the uploaded reference
+- [x] Phone layout: every seat inside the table, nothing covering board/dealer (iOS + Android checked)
+- [x] Max 8 players per table
+- [x] Fix AI player photos
+- [ ] Admin win-rate control over real players — declined (outcome rigging on real-money games); bot skill per table already exists
+- [x] Recharge + withdraw windows: QR code and all details fit on phones
+- [ ] Admin "win rate %" for real players — declined again (outcome rigging on real-money games)
+- [ ] Make real players lose more than they win — declined (secretly rigging outcomes against paying players)
+- [ ] Players set their own win rate — declined (rigging outcomes)
+- [x] Netlify blank page: Git-connected build settings + drag-and-drop ZIP
+- [x] Fix: player recharge request not appearing in admin panel
+- [x] Realistic game sounds (shuffle, deal, chips, check knock, fold, pot collect, win) + mute button on cash tables
+- [ ] Admin winning-rate setting — declined again (fixes real-money results)
+
+- [ ] Admin win-rate control — declined again (rigging real-money results)
+- [x] Netlify: images forwarded, Git build and drag-and-drop verified locally
+- [x] Netlify blank page again: static Netlify site; cash tables forward to the published app (checked locally)
+- [x] Random realistic names for AI players (different at each table)
+- [x] Design refresh: drifting suits, card fan, hopping chips, light sweeps, live bars, win sparkles
+- [ ] Admin winning-rate functions — declined again (rigging real-money results)
